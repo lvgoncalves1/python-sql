@@ -4,17 +4,27 @@ conn  = sqlite3.connect("escola.db")
 
 cursor = conn.cursor()
 
+# cursor.execute(
+#     """
+#         SELECT * FROM estudantes
+#     """
+# )
+
 cursor.execute(
     """
-        SELECT * FROM estudantes
+        SELECT * FROM disciplinas
     """
 )
 
 conn.commit()
 
-estudantes = cursor.fetchall()
+# estudantes = cursor.fetchall()
 
-for estudante in estudantes:
-    print(estudante)
+# for estudante in estudantes:
+#     print(estudante)
+
+disciplinas = cursor.fetchall()
+for disciplina in disciplinas:
+    print(disciplina)
 
 conn.close()
