@@ -1,30 +1,22 @@
 import sqlite3
 
-conn  = sqlite3.connect("escola.db")
-
+conn = sqlite3.connect("escola.db")
 cursor = conn.cursor()
 
-# cursor.execute(
-#     """
-#         SELECT * FROM estudantes
-#     """
-# )
 
 cursor.execute(
     """
-        SELECT * FROM disciplinas
+        SELECT estudantes.nome, disciplinas.nome_disciplina 
+        FROM disciplinas
+        INNER JOIN estudantes 
+        ON estudantes.id = disciplinas.estudante_id
     """
 )
 
-conn.commit()
 
-# estudantes = cursor.fetchall()
+resultados = cursor.fetchall()
 
-# for estudante in estudantes:
-#     print(estudante)
-
-disciplinas = cursor.fetchall()
-for disciplina in disciplinas:
-    print(disciplina)
+for linha in resultados:
+    print(f"estudante: {linha[0]} - Disciplina: {linha[1]}")
 
 conn.close()
