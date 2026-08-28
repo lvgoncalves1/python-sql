@@ -24,10 +24,10 @@ def criar_tabela_matricula():
     cursor = conn.cursor()
     cursor.execute(
     """
-        CREATE TABLE IF NOT EXISTS matricula(
+        CREATE TABLE IF NOT EXISTS matriculas(
             id INTEGER PRIMARY KEY,
-            nome_disciplina TEXT,
             estudante_id INTEGER,
+            nome_disciplina TEXT,
             FOREIGN KEY (estudante_id) \
                 REFERENCES estudante(id)
         )
@@ -41,7 +41,7 @@ def criar_estudante(nome, idade):
     cursor = conn.cursor()
     cursor.execute(
     """
-       INSERT INTO estudantes (nome, idade) \ 
+       INSERT INTO estudantes (nome, idade) \
        VALUES (?, ?)
     """,
         (nome, idade)
@@ -64,3 +64,29 @@ def listar_estudantes():
 
     conn.commit()
     conn.close()  
+
+def criar_matricula(estudante_id, nome_disciplina):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute(
+    """
+       INSERT INTO matriculas (estudante_id, nome_disciplina) \
+       VALUES (?, ?)
+    """,
+        (estudante_id, nome_disciplina)
+    )
+
+def listar_matriculas():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute(
+    """
+       SELECT * FROM matriculas
+    """
+    )
+    matriculas = cursor.fetchall
+
+    for matricula in matriculas:
+        print(matricula)
+
+    conn.commit()
