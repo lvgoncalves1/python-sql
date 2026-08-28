@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 import models
 import schemas
-from db import SessionLocal, engine
+from db import engine, SessionLocal
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -25,6 +25,6 @@ def create_student(student: schemas.EstudanteCreate, db: Session =  Depends(get_
     return db_student
 
 @app.get('/estudantes/', response_model=List[schemas.EstudanteResponse])
-def read_studentes(db: Session = Depends(get_db())):
+def read_studentes(db: Session = Depends(get_db)):
     students = db.query(models.Estudante).all()
     return students
