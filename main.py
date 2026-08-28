@@ -34,7 +34,7 @@ def criar_disciplina(
         disciplina: schemas.DisciplinaCreate,
         db: Session = Depends(get_db)
     ):
-    db_disciplina = models.Disciplina(**disciplina.dict())
+    db_disciplina = models.Disciplina(**disciplina.model_dump())
     db.add(db_disciplina)
     db.commit()
     db.refresh(db_disciplina)
@@ -49,7 +49,7 @@ def criar_professor(
         professor: schemas.ProfessorCreate,
         db: Session = Depends(get_db)
     ):
-    db_professor = models.Professor(**professor.dict())
+    db_professor = models.Professor(**professor.model_dump())
     db.add(db_professor)
     db.commit()
     db.refresh(db_professor)
@@ -65,7 +65,7 @@ def criar_matricula(
         matricula: schemas.MatriculaCreate,
         db: Session = Depends(get_db)
     ):
-    db_matricula = models.Matricula(**matricula.dict())
+    db_matricula = models.Matricula(**matricula.model_dump())
     db.add(db_matricula)
     db.commit()
     db.refresh(db_matricula)
